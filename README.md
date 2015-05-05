@@ -1,6 +1,8 @@
 # yagol3ds
 ![Yagol3ds](https://raw.githubusercontent.com/gonendo/yagol3ds/master/logo.png)
-Yet another game of life on 3DS!
+## Yet another game of life on 3DS!
+
+Download : [Homebrew Launcher version](http://gonendo.com/3ds/yagol3ds.zip)
 
 Controls:
 
