@@ -1,0 +1,7 @@
+build
+Debug
+obj
+resources
+*.vcxproj
+*.filters
+*.user
