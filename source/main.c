@@ -14,7 +14,7 @@ int main()
   srvInit();
   aptInit();
   gfxInitDefault();
-  hidInit(NULL);
+  hidInit();
   csndInit();
 
   consoleInit(GFX_TOP, NULL); // console
@@ -30,7 +30,7 @@ int main()
   u32 kHeld;
   touchPosition touch;
   int generate = 0;
-  u8* sound;
+  u8* sound = NULL;
 
   while (aptMainLoop())
   {
@@ -40,7 +40,7 @@ int main()
     kHeld = hidKeysHeld();
 
     // If START button is pressed, break loop and quit
-    if (kDown & KEY_START){
+    if(kDown & KEY_START){
         break;
     }
     else if(kDown & KEY_A){
@@ -70,7 +70,8 @@ int main()
     gspWaitForVBlank();
   }
 
-  linearFree(sound);
+  if(sound != NULL)
+    linearFree(sound);
 
   // Exit
   gfxExit();

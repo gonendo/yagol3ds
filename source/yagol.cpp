@@ -180,9 +180,9 @@ extern "C" u8* playWav(const char* wavFile){
     Handle fileHandle;
 
     //Open wav file
-    FS_archive sdmcArchive = (FS_archive){ ARCH_SDMC, (FS_path){ PATH_EMPTY, 1, (u8*)"" } };
-    FS_path filePath = FS_makePath(PATH_CHAR, wavFile);
-    Result ret = FSUSER_OpenFileDirectly(NULL, &fileHandle, sdmcArchive, filePath, FS_OPEN_READ, FS_ATTRIBUTE_NONE);
+    FS_Archive sdmcArchive = (FS_Archive){ ARCHIVE_SDMC, (FS_Path){ PATH_EMPTY, 1, (u8*)"" } };
+    FS_Path filePath = fsMakePath(PATH_ASCII, wavFile);
+    Result ret = FSUSER_OpenFileDirectly(&fileHandle, sdmcArchive, filePath, FS_OPEN_READ, 0);
     if (ret){
         printf("\x1b[7;1HCan't open file");
         return 0;
@@ -195,7 +195,7 @@ extern "C" u8* playWav(const char* wavFile){
     FSFILE_Read(fileHandle, &bytesRead, 24, &samplerate, 4);
     FSFILE_Read(fileHandle, &bytesRead, 44, audiobuf, size - 44);
 
-    GSPGPU_FlushDataCache(NULL, audiobuf, size);
+    GSPGPU_FlushDataCache(audiobuf, size);
     Result res = csndPlaySound(0x08, SOUND_FORMAT_16BIT | SOUND_ONE_SHOT, samplerate, 1, 0, (u32*)audiobuf, NULL, size);
     if (res != 0){
         printf("\x1b[7;1HCan't play file");
